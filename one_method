@@ -1,0 +1,36 @@
+class TreeNode{
+	int val;
+	TreeNode left;
+	TreeNode right;
+	TreeNode(){}
+	TreeNode(int val){
+		this.val=val;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class Solution {
+	public int NumberofSubtrees(TreeNode root){
+		int[] res=new int[1];
+		dfs(root,res);
+		return res[0];
+	}
+	private boolean dfs(TreeNode node, int[] res){
+		if(node==null){
+			return true;
+		}
+		boolean left=dfs(node.left,res);
+		boolean right=dfs(node.right,res);
+		if(left&&right){
+			if(node.left != null && node.val != node.left.val) {
+	             return false;
+	         }
+	        if (node.right != null && node.val != node.right.val) {
+	             return false;
+	        }
+	        res[0]++;
+	        return true;
+		}
+		return false;
+	}
+}
